@@ -3,13 +3,13 @@
 ## Loading and preprocessing the data
 As per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
 
-(1) Extract the dataset
+1. Extract the dataset
 
 ```r
 unzip("activity.zip")
 ```
 
-(2) Read the dataset
+2. Read the dataset
 
 ```r
 activityData <- read.csv("activity.csv")
@@ -61,35 +61,33 @@ histogram(stepsByDate$totalSteps, xlab="Total Steps")
 
 ![plot of chunk unnamed-chunk-5](./PA1_template_files/figure-html/unnamed-chunk-5.png) 
 
-The mean and median of the total number of steps taken per day can then be calculated and reported.  **The mean is 10766 steps, and the median is 10765 steps.**
+The mean total number of steps taken per day can then be calculated and reported. **The mean is 10766 steps, and the median is 10765 steps.**
 
 ```r
-## Calculate mean and median
 meanTotalSteps <- mean(stepsByDate$totalSteps, na.rm=TRUE)
-medianTotalSteps <- median(stepsByDate$totalSteps, na.rm=TRUE)
-
-## Print mean and median
-print(paste("MeanTotalSteps ", meanTotalSteps))
+print(meanTotalSteps)
 ```
 
 ```
-## [1] "MeanTotalSteps  10766.1886792453"
+## [1] 10766
 ```
+
+The same is true for the median total number of steps taken per day.
 
 ```r
-print(paste("MedianTotalSteps ", medianTotalSteps))
+medianTotalSteps <- median(stepsByDate$totalSteps, na.rm=TRUE)
+print(medianTotalSteps)
 ```
 
 ```
-## [1] "MedianTotalSteps  10765"
+## [1] 10765
 ```
-
 
 
 
 ## What is the average daily activity pattern?
 
-To determine the average daily activity pattern, a time series plot of the 5-minute interval (x-axis) versus the average number of steps taken, averaged across all days (y-axis), was created.
+To determine the average daily activity pattern, a time series plot of the 5-minute interval (x-axis) versus the average number of steps taken, averaged across all days (y-axis) was created.
 
 In creating the time series plot, the dataset was first grouped by interval, and then summarized using the mean of the steps per date
 
@@ -107,7 +105,7 @@ The time series plot was then created using stepsByInterval
 xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l", xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
-![plot of chunk unnamed-chunk-8](./PA1_template_files/figure-html/unnamed-chunk-8.png) 
+![plot of chunk unnamed-chunk-9](./PA1_template_files/figure-html/unnamed-chunk-9.png) 
 
 From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. **This 5-minute interval is 835.**
 
@@ -128,18 +126,13 @@ The original dataset contains missing values.  The statement below calculates th
 
 ```r
 totalIncompleteRows <- sum(!complete.cases(activityData))
-print(totalIncompleteRows)
-```
-
-```
-## [1] 2304
 ```
 
 As noted in the assignment instructions, the presence of missing days may introduce bias into some calculations or summaries of the data.
 
-To address the missing values, an imputation strategy was employed.  **In this analysis, the missing values were imputed with the mean of the corresponding 5-minute interval.** 
+To address the missing values, an imputation strategy is employed.  **In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval.** 
 
-To preserve the original data, a new dataset called activityDataImputed was created.
+To preserve the original data, a new dataset called activityDataImputed is created.
 
 ```r
 activityDataImputed <- activityData
@@ -156,7 +149,7 @@ head(activityDataImputed)
 ## 6    NA 2012-10-01       25
 ```
 
-The missing values in activityDataImputed were then replaced with the mean of the corresponding 5-minute interval using the for-loop statement below
+The missing values in activityDataImputed are then replaced with the mean of the corresponding 5-minute interval using the for-loop statement below
 
 ```r
 for(i in 1:nrow(activityDataImputed)){
@@ -182,7 +175,7 @@ head(activityDataImputed)
 ## 6 2.09434 2012-10-01       25
 ```
 
-To view the effect of the imputation, the histogram created above was reconstructed. But this time, the dataset with imputed values was used.
+To view the effect of the imputation, the histogram created above is reconstructed. But this time, the dataset with imputed values is used.
 
 
 ```r
@@ -196,9 +189,9 @@ stepsByDate_2<- summarize(activityByDate_2, totalSteps = sum(steps))
 histogram(stepsByDate_2$totalSteps, xlab="Total Steps")
 ```
 
-![plot of chunk unnamed-chunk-14](./PA1_template_files/figure-html/unnamed-chunk-14.png) 
+![plot of chunk unnamed-chunk-15](./PA1_template_files/figure-html/unnamed-chunk-15.png) 
 
-The mean and median of the data with imputed values were also calculated
+The mean and median of the data with imputed values are also calculated
 
 ```r
 ## Mean of total number of steps taken per day
@@ -282,7 +275,7 @@ stepsByInterval_2 <- summarize(activityByInterval_2, meanSteps = mean(steps, na.
 xyplot(stepsByInterval_2$meanSteps ~ stepsByInterval_2$interval | weekFactor, data=stepsByInterval_2, type=c("l","r"), layout=c(1,2), xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
-![plot of chunk unnamed-chunk-18](./PA1_template_files/figure-html/unnamed-chunk-18.png) 
+![plot of chunk unnamed-chunk-19](./PA1_template_files/figure-html/unnamed-chunk-19.png) 
 
 Per review of the time series plot, the maximum average number of steps is on a weekday. However, overall, weekends have a slightly higher average number of steps.
 
