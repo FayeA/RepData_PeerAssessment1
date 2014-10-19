@@ -1,7 +1,7 @@
 # Reproducible Research: Peer Assessment 1
 
 ## Loading and preprocessing the data
-**As** per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
+As per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
 
 1. Extract the dataset
 
@@ -61,7 +61,7 @@ histogram(stepsByDate$totalSteps, xlab="Total Steps")
 
 ![plot of chunk unnamed-chunk-5](./PA1_template_files/figure-html/unnamed-chunk-5.png) 
 
-The mean total number of steps taken per day can then be calculated and reported.
+The mean total number of steps taken per day can then be calculated and reported. **The mean is 10766 steps, and the median is 10765 steps.**
 
 ```r
 meanTotalSteps <- mean(stepsByDate$totalSteps, na.rm=TRUE)
@@ -107,7 +107,7 @@ xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, ty
 
 ![plot of chunk unnamed-chunk-9](./PA1_template_files/figure-html/unnamed-chunk-9.png) 
 
-From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. This 5-minute interval is 835.
+From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. **This 5-minute interval is 835.**
 
 The 5-minute interval that contains the maximum number of steps can be verified using the statement below
 
@@ -130,7 +130,7 @@ totalIncompleteRows <- sum(!complete.cases(activityData))
 
 As noted in the assignment instructions, the presence of missing days may introduce bias into some calculations or summaries of the data.
 
-To address the missing values, an imputation strategy is employed.  In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval. 
+To address the missing values, an imputation strategy is employed.  **In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval.** 
 
 To preserve the original data, a new dataset called activityDataImputed is created.
 

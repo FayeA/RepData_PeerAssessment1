@@ -44,7 +44,7 @@ The stepsByDate data can be visualized using the histogram below
 histogram(stepsByDate$totalSteps, xlab="Total Steps")
 ```
 
-The mean total number of steps taken per day can then be calculated and reported.
+The mean total number of steps taken per day can then be calculated and reported. **The mean is 10766 steps, and the median is 10765 steps.**
 ```{r, echo=TRUE}
 meanTotalSteps <- mean(stepsByDate$totalSteps, na.rm=TRUE)
 print(meanTotalSteps)
@@ -77,7 +77,7 @@ The time series plot was then created using stepsByInterval
 xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l", xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
-From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. This 5-minute interval is 835.
+From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. **This 5-minute interval is 835.**
 
 The 5-minute interval that contains the maximum number of steps can be verified using the statement below
 ```{r, echo=TRUE}
@@ -94,7 +94,7 @@ totalIncompleteRows <- sum(!complete.cases(activityData))
 
 As noted in the assignment instructions, the presence of missing days may introduce bias into some calculations or summaries of the data.
 
-To address the missing values, an imputation strategy is employed.  In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval. 
+To address the missing values, an imputation strategy is employed.  **In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval.** 
 
 To preserve the original data, a new dataset called activityDataImputed is created.
 ```{r, echo=TRUE}
