@@ -1,7 +1,7 @@
 # Reproducible Research: Peer Assessment 1
 
 ## Loading and preprocessing the data
-As per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
+**As** per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
 
 1. Extract the dataset
 
@@ -56,7 +56,7 @@ stepsByDate <- summarize(activityByDate, totalSteps = sum(steps))
 The stepsByDate data can be visualized using the histogram below
 
 ```r
-histogram(stepsByDate$totalSteps)
+histogram(stepsByDate$totalSteps, xlab="Total Steps")
 ```
 
 ![plot of chunk unnamed-chunk-5](./PA1_template_files/figure-html/unnamed-chunk-5.png) 
@@ -102,7 +102,7 @@ stepsByInterval <- summarize(activityByInterval, meanSteps = mean(steps, na.rm=T
 The time series plot was then created using stepsByInterval
 
 ```r
-xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l")
+xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l", xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
 ![plot of chunk unnamed-chunk-9](./PA1_template_files/figure-html/unnamed-chunk-9.png) 
@@ -186,7 +186,7 @@ activityByDate_2 <- group_by(activityDataImputed, date)
 stepsByDate_2<- summarize(activityByDate_2, totalSteps = sum(steps))
 
 ## Create the histogram of total number of steps taken each day.
-histogram(stepsByDate_2$totalSteps)
+histogram(stepsByDate_2$totalSteps, xlab="Total Steps")
 ```
 
 ![plot of chunk unnamed-chunk-15](./PA1_template_files/figure-html/unnamed-chunk-15.png) 
@@ -272,7 +272,7 @@ activityByInterval_2 <- group_by(activityDataImputed, weekFactor, interval)
 stepsByInterval_2 <- summarize(activityByInterval_2, meanSteps = mean(steps, na.rm=FALSE))
 
 ## Create the plot
-xyplot(stepsByInterval_2$meanSteps ~ stepsByInterval_2$interval | weekFactor, data=stepsByInterval_2, type=c("l","r"), layout=c(1,2))
+xyplot(stepsByInterval_2$meanSteps ~ stepsByInterval_2$interval | weekFactor, data=stepsByInterval_2, type=c("l","r"), layout=c(1,2), xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
 ![plot of chunk unnamed-chunk-19](./PA1_template_files/figure-html/unnamed-chunk-19.png) 

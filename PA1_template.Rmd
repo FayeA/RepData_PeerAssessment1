@@ -41,7 +41,7 @@ stepsByDate <- summarize(activityByDate, totalSteps = sum(steps))
 
 The stepsByDate data can be visualized using the histogram below
 ```{r, echo=TRUE}
-histogram(stepsByDate$totalSteps)
+histogram(stepsByDate$totalSteps, xlab="Total Steps")
 ```
 
 The mean total number of steps taken per day can then be calculated and reported.
@@ -74,7 +74,7 @@ stepsByInterval <- summarize(activityByInterval, meanSteps = mean(steps, na.rm=T
 
 The time series plot was then created using stepsByInterval
 ```{r, echo=TRUE}
-xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l")
+xyplot(stepsByInterval$meanSteps ~ stepsByInterval$interval, stepsByInterval, type="l", xlab="5-minute Intervals", ylab="Mean Steps")
 ```
 
 From this plot, we can identify which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps. This 5-minute interval is 835.
@@ -126,7 +126,7 @@ activityByDate_2 <- group_by(activityDataImputed, date)
 stepsByDate_2<- summarize(activityByDate_2, totalSteps = sum(steps))
 
 ## Create the histogram of total number of steps taken each day.
-histogram(stepsByDate_2$totalSteps)
+histogram(stepsByDate_2$totalSteps, xlab="Total Steps")
 ```
 
 The mean and median of the data with imputed values are also calculated
@@ -185,7 +185,7 @@ activityByInterval_2 <- group_by(activityDataImputed, weekFactor, interval)
 stepsByInterval_2 <- summarize(activityByInterval_2, meanSteps = mean(steps, na.rm=FALSE))
 
 ## Create the plot
-xyplot(stepsByInterval_2$meanSteps ~ stepsByInterval_2$interval | weekFactor, data=stepsByInterval_2, type=c("l","r"), layout=c(1,2))
+xyplot(stepsByInterval_2$meanSteps ~ stepsByInterval_2$interval | weekFactor, data=stepsByInterval_2, type=c("l","r"), layout=c(1,2), xlab="5-minute Intervals", ylab="Mean Steps")
 
 ```
 
