@@ -8,12 +8,12 @@ output:
 ## Loading and preprocessing the data
 As per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
 
-1. Extract the dataset
+(1) Extract the dataset
 ```{r, echo=TRUE}
 unzip("activity.zip")
 ```
 
-2. Read the dataset
+(2) Read the dataset
 ```{r, echo=TRUE}
 activityData <- read.csv("activity.csv")
 ```
@@ -44,23 +44,23 @@ The stepsByDate data can be visualized using the histogram below
 histogram(stepsByDate$totalSteps, xlab="Total Steps")
 ```
 
-The mean total number of steps taken per day can then be calculated and reported. **The mean is 10766 steps, and the median is 10765 steps.**
+The mean and median of the total number of steps taken per day can then be calculated and reported.  **The mean is 10766 steps, and the median is 10765 steps.**
 ```{r, echo=TRUE}
+## Calculate mean and median
 meanTotalSteps <- mean(stepsByDate$totalSteps, na.rm=TRUE)
-print(meanTotalSteps)
+medianTotalSteps <- median(stepsByDate$totalSteps, na.rm=TRUE)
+
+## Print mean and median
+print(paste("MeanTotalSteps ", meanTotalSteps))
+print(paste("MedianTotalSteps ", medianTotalSteps))
 ```
 
-The same is true for the median total number of steps taken per day.
-```{r, echo=TRUE}
-medianTotalSteps <- median(stepsByDate$totalSteps, na.rm=TRUE)
-print(medianTotalSteps)
-```
 
 
 
 ## What is the average daily activity pattern?
 
-To determine the average daily activity pattern, a time series plot of the 5-minute interval (x-axis) versus the average number of steps taken, averaged across all days (y-axis) was created.
+To determine the average daily activity pattern, a time series plot of the 5-minute interval (x-axis) versus the average number of steps taken, averaged across all days (y-axis), was created.
 
 In creating the time series plot, the dataset was first grouped by interval, and then summarized using the mean of the steps per date
 ```{r, echo=TRUE}
@@ -90,19 +90,20 @@ stepsByInterval[stepsByInterval$meanSteps==max(stepsByInterval$meanSteps),1]
 The original dataset contains missing values.  The statement below calculates the number of rows with missing values.
 ```{r, echo=TRUE}
 totalIncompleteRows <- sum(!complete.cases(activityData))
+print(totalIncompleteRows)
 ```
 
 As noted in the assignment instructions, the presence of missing days may introduce bias into some calculations or summaries of the data.
 
-To address the missing values, an imputation strategy is employed.  **In this analysis, the missing values are imputed with the mean of the corresponding 5-minute interval.** 
+To address the missing values, an imputation strategy was employed.  **In this analysis, the missing values were imputed with the mean of the corresponding 5-minute interval.** 
 
-To preserve the original data, a new dataset called activityDataImputed is created.
+To preserve the original data, a new dataset called activityDataImputed was created.
 ```{r, echo=TRUE}
 activityDataImputed <- activityData
 head(activityDataImputed)
 ```
 
-The missing values in activityDataImputed are then replaced with the mean of the corresponding 5-minute interval using the for-loop statement below
+The missing values in activityDataImputed were then replaced with the mean of the corresponding 5-minute interval using the for-loop statement below
 ```{r, echo=TRUE}
 for(i in 1:nrow(activityDataImputed)){
   if(is.na(activityDataImputed$steps[i])){
@@ -116,7 +117,7 @@ The imputation can be previewed in the first five rows of the dataset
 head(activityDataImputed)
 ```
 
-To view the effect of the imputation, the histogram created above is reconstructed. But this time, the dataset with imputed values is used.
+To view the effect of the imputation, the histogram created above was reconstructed. But this time, the dataset with imputed values was used.
 
 ```{r, echo=TRUE}
 ## Group the activityDataImputed by date variable  
@@ -129,7 +130,7 @@ stepsByDate_2<- summarize(activityByDate_2, totalSteps = sum(steps))
 histogram(stepsByDate_2$totalSteps, xlab="Total Steps")
 ```
 
-The mean and median of the data with imputed values are also calculated
+The mean and median of the data with imputed values were also calculated
 ```{r, echo=TRUE}
 ## Mean of total number of steps taken per day
 meanTotalSteps_2 <- mean(stepsByDate_2$totalSteps, na.rm=FALSE)
