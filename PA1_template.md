@@ -3,13 +3,13 @@
 ## Loading and preprocessing the data
 As per the instructions for this assignment, the "activity.zip" file from the forked repository was used.  The following steps were taken to load and pre-process the data:
 
-1. Extract the dataset
+(1) Extract the dataset
 
 ```r
 unzip("activity.zip")
 ```
 
-2. Read the dataset
+(2) Read the dataset
 
 ```r
 activityData <- read.csv("activity.csv")
